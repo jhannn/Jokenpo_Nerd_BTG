@@ -8,7 +8,7 @@ namespace DesafioBTG.Services.Implementation
 {
     public class MovementsTypeService: IMovementsTypeService
     {
-        private List<MovementType> _movements;
+        private readonly List<MovementType> _movements;
 
         public MovementsTypeService()
         {

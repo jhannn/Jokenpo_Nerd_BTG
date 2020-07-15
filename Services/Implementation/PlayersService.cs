@@ -9,7 +9,7 @@ namespace DesafioBTG.Services.Implementation
 {
     public class PlayersService: IPlayersService
     {
-        private List<Player> _players;
+        private readonly List<Player> _players;
 
         public PlayersService()
         {
@@ -19,8 +19,9 @@ namespace DesafioBTG.Services.Implementation
         {
             return _players;
         }
-        public Player AddPlayer(Player player)
+        public Player AddPlayer(string name)
         {
+            var player = new Player(name.ToUpper());
             _players.Add(player);
             return player;
         }
@@ -28,7 +29,7 @@ namespace DesafioBTG.Services.Implementation
         {
             for (var index = _players.Count - 1; index >= 0; index--)
             {
-                if (_players[index].Name == name)
+                if (_players[index].Name == name.ToUpper())
                 {
                     _players.RemoveAt(index);
                 }

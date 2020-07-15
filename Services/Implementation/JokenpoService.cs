@@ -8,8 +8,8 @@ namespace DesafioBTG.Services.Implementation
 {
     public class JokenpoService: IJokenpoService
     {
-        private IPlayersService _playersService;
-        private IMovesService _movesService;
+        private readonly IPlayersService _playersService;
+        private readonly IMovesService _movesService;
 
         public JokenpoService(IPlayersService playersService, IMovesService movesService)
         {
@@ -22,7 +22,7 @@ namespace DesafioBTG.Services.Implementation
             var moves = _movesService.GetMoves();
             if (moves.Count >= 2)
             {
-                result = "Player one won.";
+                result = "Player: " + moves[0].Player.Name + " won.";
                 if(moves[0].Movement.Name == moves[1].Movement.Name)
                 {
                     result = "Draw";
@@ -33,18 +33,19 @@ namespace DesafioBTG.Services.Implementation
                     {
                         if(element == moves[1].Movement.Name)
                         {
-                            result = "Player two won.";
+                            result = "Player: " + moves[1].Player.Name + " won.";
                         }
                     }
                 }
             }
+            _movesService.DeleteAllMoves();
             return result;
         }
         public string Reset()
         {
             _movesService.DeleteAllMoves();
             _playersService.DeleteAllPlayers();
-            return "New game.";
+            return "New game, please put new players and moves.";
         }
     }
 }

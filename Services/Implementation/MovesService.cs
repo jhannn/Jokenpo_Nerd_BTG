@@ -8,9 +8,9 @@ namespace DesafioBTG.Services.Implementation
 {
     public class MovesService: IMovesService
     {
-        private IPlayersService _playersService;
-        private IMovementsTypeService _movementsTypeService;
-        private List<Move> _moves;
+        private readonly IPlayersService _playersService;
+        private readonly IMovementsTypeService _movementsTypeService;
+        private readonly List<Move> _moves;
 
         public MovesService(IPlayersService playersService, IMovementsTypeService movementsTypeService)
         {
@@ -30,14 +30,14 @@ namespace DesafioBTG.Services.Implementation
             int indexMovement = -1;
             for (var index = players.Count - 1; index >= 0; index--)
             {
-                if (players[index].Name == playerName)
+                if (players[index].Name == playerName.ToUpper())
                 {
                     indexPlayer = index;
                 }
             }
             for (var index = movements.Count - 1; index >= 0; index--)
             {
-                if (movements[index].Name == name)
+                if (movements[index].Name == name.ToUpper())
                 {
                     indexMovement = index;
                 }
@@ -49,18 +49,6 @@ namespace DesafioBTG.Services.Implementation
                 return move;
             }
             return null;
-        }
-        public string DeleteMoveByPlayerName(string playerName)
-        {
-            for (var index = _moves.Count - 1; index >= 0; index--)
-            {
-                if (_moves[index].Player.Name == playerName)
-                {
-                    _moves.RemoveAt(index);
-                }
-            }
-
-            return playerName;
         }
         public void DeleteAllMoves()
         {

@@ -35,9 +35,7 @@ namespace DesafioBTG.Controllers
         public ActionResult<Player> AddPlayer(string name)
         {
             _logger.LogInformation("Created player: {name}", name);
-            var player = new Player(name);
-            _service.AddPlayer(player);
-            return player;
+            return _service.AddPlayer(name);
         }
 
         [HttpDelete("players/{name}")]

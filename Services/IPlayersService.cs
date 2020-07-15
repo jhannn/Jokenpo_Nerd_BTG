@@ -9,7 +9,7 @@ namespace DesafioBTG.Services
     public interface IPlayersService
     {
         public List<Player> GetPlayers();
-        public Player AddPlayer(Player player);
+        public Player AddPlayer(string name);
         public string DeletePlayer(string name);
         public void DeleteAllPlayers();
     }
