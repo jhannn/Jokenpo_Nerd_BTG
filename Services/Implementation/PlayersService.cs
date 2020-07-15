@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DesafioBTG.Services.Implementation
 {
-    public class PlayersService: IPlayersService
+    public class PlayersService : IPlayersService
     {
         private readonly List<Player> _players;
 
@@ -21,9 +21,17 @@ namespace DesafioBTG.Services.Implementation
         }
         public Player AddPlayer(string name)
         {
+            foreach (var element in _players)
+            {
+                if (element.Name == name.ToUpper())
+                {
+                    return null;
+                }
+            }
             var player = new Player(name.ToUpper());
             _players.Add(player);
             return player;
+
         }
         public string DeletePlayer(string name)
         {
@@ -34,7 +42,6 @@ namespace DesafioBTG.Services.Implementation
                     _players.RemoveAt(index);
                 }
             }
-
             return name;
         }
         public void DeleteAllPlayers()

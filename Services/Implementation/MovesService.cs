@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesafioBTG.Services.Implementation
 {
-    public class MovesService: IMovesService
+    public class MovesService : IMovesService
     {
         private readonly IPlayersService _playersService;
         private readonly IMovementsTypeService _movementsTypeService;
@@ -26,25 +26,32 @@ namespace DesafioBTG.Services.Implementation
         {
             var players = _playersService.GetPlayers();
             var movements = _movementsTypeService.GetAll();
-            int indexPlayer = -1;
-            int indexMovement = -1;
-            for (var index = players.Count - 1; index >= 0; index--)
+            Player player = null;
+            MovementType movement = null;
+            foreach (var element in _moves)
             {
-                if (players[index].Name == playerName.ToUpper())
+                if (element.Player.Name == playerName.ToUpper())
                 {
-                    indexPlayer = index;
+                    return null;
                 }
             }
-            for (var index = movements.Count - 1; index >= 0; index--)
+            foreach (var element in players)
             {
-                if (movements[index].Name == name.ToUpper())
+                if (element.Name == playerName.ToUpper())
                 {
-                    indexMovement = index;
+                    player = element;
                 }
             }
-            if (indexPlayer >= 0 && indexMovement >= 0)
+            foreach (var element in movements)
             {
-                var move = new Move(players[indexPlayer], movements[indexMovement]);
+                if (element.Name == name.ToUpper())
+                {
+                    movement = element;
+                }
+            }
+            if (player != null && movement != null)
+            {
+                var move = new Move(player, movement);
                 _moves.Add(move);
                 return move;
             }

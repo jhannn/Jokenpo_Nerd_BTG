@@ -7,8 +7,6 @@ using DesafioBTG.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace DesafioBTG.Controllers
 {
     [Route("api/[controller]")]
@@ -31,7 +29,6 @@ namespace DesafioBTG.Controllers
             return _service.GetMoves();
         }
 
-        // POST api/<PlayerController>
         [HttpPost("moves")]
         public ActionResult<Move> InsertMove(string playerName, string name)
         {
@@ -39,7 +36,6 @@ namespace DesafioBTG.Controllers
             return _service.InsertMove(playerName, name);
         }
 
-        // DELETE api/<MovementController>/5
         [HttpDelete("moves")]
         public void DeleteAllMoves()
         {

@@ -14,7 +14,6 @@ namespace DesafioBTG.Controllers
     [ApiController]
     public class JokenpoController : ControllerBase
     {
-
         private readonly ILogger _logger;
         private readonly IJokenpoService _service;
 

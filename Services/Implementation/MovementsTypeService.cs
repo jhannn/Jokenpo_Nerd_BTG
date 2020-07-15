@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesafioBTG.Services.Implementation
 {
-    public class MovementsTypeService: IMovementsTypeService
+    public class MovementsTypeService : IMovementsTypeService
     {
         private readonly List<MovementType> _movements;
 

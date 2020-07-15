@@ -30,7 +30,6 @@ namespace DesafioBTG.Controllers
             return _service.GetPlayers();
         }
 
-        // POST api/<PlayerController>
         [HttpPost("players")]
         public ActionResult<Player> AddPlayer(string name)
         {

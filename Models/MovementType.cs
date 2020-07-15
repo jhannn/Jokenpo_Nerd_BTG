@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace DesafioBTG.Models
 {
-
     public class MovementType
     {
         public string Name { get; set; }

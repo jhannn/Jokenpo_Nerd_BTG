@@ -38,7 +38,8 @@ namespace DesafioBTG
 
         private static void ConfigureSwagger(IServiceCollection services)
         {
-            services.AddSwaggerGen(c => {
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Jokenpo Nerd", Version = "v1" });
             });
         }

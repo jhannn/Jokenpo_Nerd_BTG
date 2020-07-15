@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesafioBTG.Services.Implementation
 {
-    public class JokenpoService: IJokenpoService
+    public class JokenpoService : IJokenpoService
     {
         private readonly IPlayersService _playersService;
         private readonly IMovesService _movesService;
@@ -23,15 +23,15 @@ namespace DesafioBTG.Services.Implementation
             if (moves.Count >= 2)
             {
                 result = "Player: " + moves[0].Player.Name + " won.";
-                if(moves[0].Movement.Name == moves[1].Movement.Name)
+                if (moves[0].Movement.Name == moves[1].Movement.Name)
                 {
                     result = "Draw";
                 }
                 else
                 {
-                    foreach(var element in moves[0].Movement.Weakness)
+                    foreach (var element in moves[0].Movement.Weakness)
                     {
-                        if(element == moves[1].Movement.Name)
+                        if (element == moves[1].Movement.Name)
                         {
                             result = "Player: " + moves[1].Player.Name + " won.";
                         }
