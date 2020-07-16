@@ -24,6 +24,10 @@ namespace DesafioBTG.Services.Implementation
         }
         public Move InsertMove(string playerName, string name)
         {
+            if (playerName == null || name == null)
+            {
+                return null;
+            }
             var players = _playersService.GetPlayers();
             var movements = _movementsTypeService.GetAll();
             Player player = null;
@@ -60,6 +64,17 @@ namespace DesafioBTG.Services.Implementation
         public void DeleteAllMoves()
         {
             _moves.Clear();
+        }
+
+        public void DeleteMoveByPlayerName(string playerName)
+        {
+            for (var index = _moves.Count - 1; index >= 0; index--)
+            {
+                if (_moves[index].Player.Name == playerName)
+                {
+                    _moves.RemoveAt(index);
+                }
+            }
         }
     }
 }

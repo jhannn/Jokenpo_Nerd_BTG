@@ -24,17 +24,33 @@ namespace DesafioBTG.Controllers
         }
 
         [HttpGet("jokenpo")]
-        public ActionResult<string> Play()
+        public ActionResult<string> Play(string namePlayer1, string namePlayer2)
         {
-            _logger.LogInformation("Game started.");
-            return _service.Play();
+            try
+            {
+                _logger.LogInformation("Game started");
+                return _service.Play(namePlayer1, namePlayer2);
+            }
+            catch (Exception)
+            {
+                _logger.LogError("Error playing jokenpo");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpDelete("jokenpo")]
         public ActionResult<string> Reset()
         {
-            _logger.LogInformation("Game reseted.");
-            return _service.Reset();
+            try
+            {
+                _logger.LogInformation("Game reseted");
+                return _service.Reset();
+            }
+            catch (Exception)
+            {
+                _logger.LogError("Error reseting jokenpo");
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

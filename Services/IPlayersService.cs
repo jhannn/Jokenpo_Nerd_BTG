@@ -10,7 +10,6 @@ namespace DesafioBTG.Services
     {
         public List<Player> GetPlayers();
         public Player AddPlayer(string name);
-        public string DeletePlayer(string name);
         public void DeleteAllPlayers();
     }
 }

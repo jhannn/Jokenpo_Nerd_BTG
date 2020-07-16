@@ -21,28 +21,20 @@ namespace DesafioBTG.Services.Implementation
         }
         public Player AddPlayer(string name)
         {
-            foreach (var element in _players)
+            if (name != null)
             {
-                if (element.Name == name.ToUpper())
+                foreach (var element in _players)
                 {
-                    return null;
+                    if (element.Name == name.ToUpper())
+                    {
+                        return null;
+                    }
                 }
+                var player = new Player(name.ToUpper());
+                _players.Add(player);
+                return player;
             }
-            var player = new Player(name.ToUpper());
-            _players.Add(player);
-            return player;
-
-        }
-        public string DeletePlayer(string name)
-        {
-            for (var index = _players.Count - 1; index >= 0; index--)
-            {
-                if (_players[index].Name == name.ToUpper())
-                {
-                    _players.RemoveAt(index);
-                }
-            }
-            return name;
+            return null;
         }
         public void DeleteAllPlayers()
         {

@@ -26,23 +26,36 @@ namespace DesafioBTG.Controllers
         [HttpGet("players")]
         public ActionResult<List<Player>> GetPlayers()
         {
-            _logger.LogInformation("Listed all players.");
-            return _service.GetPlayers();
+            try
+            {
+                _logger.LogInformation("Listed all players");
+                return _service.GetPlayers(); ;
+            }
+            catch (Exception)
+            {
+                _logger.LogError("Error listing all players");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPost("players")]
         public ActionResult<Player> AddPlayer(string name)
         {
-            _logger.LogInformation("Created player: {name}", name);
-            return _service.AddPlayer(name);
-        }
-
-        [HttpDelete("players/{name}")]
-        public ActionResult<string> DeletePlayer(string name)
-        {
-            _logger.LogInformation("Deleted player: {name}", name);
-            _service.DeletePlayer(name);
-            return name;
+            try
+            {
+                var newPlayer = _service.AddPlayer(name);
+                if (newPlayer == null)
+                {
+                    return BadRequest("Player already exist or invalid");
+                }
+                _logger.LogInformation("Created player: {name}", name);
+                return newPlayer;
+            }
+            catch (Exception)
+            {
+                _logger.LogError("Error creating player");
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

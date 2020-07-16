@@ -25,22 +25,36 @@ namespace DesafioBTG.Controllers
         [HttpGet("moves")]
         public ActionResult<List<Move>> GetMoves()
         {
-            _logger.LogInformation("Listed all moves.");
-            return _service.GetMoves();
+            try
+            {
+                _logger.LogInformation("Listed all moves.");
+                return _service.GetMoves();
+            }
+            catch (Exception)
+            {
+                _logger.LogError("Error listing all moves");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPost("moves")]
         public ActionResult<Move> InsertMove(string playerName, string name)
         {
-            _logger.LogInformation("Created move: {name}, player: {playerName}.", name, playerName);
-            return _service.InsertMove(playerName, name);
-        }
-
-        [HttpDelete("moves")]
-        public void DeleteAllMoves()
-        {
-            _logger.LogInformation("Deleted all moves.");
-            _service.DeleteAllMoves();
+            try
+            {
+                var newMove = _service.InsertMove(playerName, name);
+                if (newMove == null)
+                {
+                    return BadRequest("Move already exist, player or move don't exist");
+                }
+                _logger.LogInformation("Created move: {name}, player: {playerName}.", name, playerName);
+                return newMove;
+            }
+            catch (Exception)
+            {
+                _logger.LogError("Error inserting move");
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

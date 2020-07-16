@@ -11,5 +11,6 @@ namespace DesafioBTG.Services
         public List<Move> GetMoves();
         public Move InsertMove(string playerName, string name);
         public void DeleteAllMoves();
+        public void DeleteMoveByPlayerName(string playerName);
     }
 }

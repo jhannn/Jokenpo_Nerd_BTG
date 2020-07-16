@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesafioBTG.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -16,29 +17,46 @@ namespace DesafioBTG.Services.Implementation
             _playersService = playersService;
             _movesService = movesService;
         }
-        public string Play()
+        public string Play(string namePlayer1, string namePlayer2)
         {
-            var result = "Nothing.";
+            var result = "Invalid game";
             var moves = _movesService.GetMoves();
-            if (moves.Count >= 2)
+            Move movePlayer1 = null;
+            Move movePlayer2 = null;
+            if (moves.Count >= 2 && namePlayer1 != namePlayer2 && namePlayer1 != null && namePlayer2 != null)
             {
-                result = "Player: " + moves[0].Player.Name + " won.";
-                if (moves[0].Movement.Name == moves[1].Movement.Name)
+                foreach (var move in moves)
                 {
-                    result = "Draw";
-                }
-                else
-                {
-                    foreach (var element in moves[0].Movement.Weakness)
+                    if (move.Player.Name == namePlayer1.ToUpper())
                     {
-                        if (element == moves[1].Movement.Name)
-                        {
-                            result = "Player: " + moves[1].Player.Name + " won.";
-                        }
+                        movePlayer1 = move;
+                    }
+                    else if (move.Player.Name == namePlayer2.ToUpper())
+                    {
+                        movePlayer2 = move;
                     }
                 }
+                if (movePlayer1 != null && movePlayer2 != null)
+                {
+                    result = "Player: " + movePlayer1.Player.Name + " won";
+                    if (movePlayer1.Movement.Name == movePlayer2.Movement.Name)
+                    {
+                        result = "Draw";
+                    }
+                    else
+                    {
+                        foreach (var element in movePlayer1.Movement.Weakness)
+                        {
+                            if (element == movePlayer2.Movement.Name)
+                            {
+                                result = "Player: " + movePlayer2.Player.Name + " won";
+                            }
+                        }
+                    }
+                    _movesService.DeleteMoveByPlayerName(namePlayer1.ToUpper());
+                    _movesService.DeleteMoveByPlayerName(namePlayer2.ToUpper());
+                }
             }
-            _movesService.DeleteAllMoves();
             return result;
         }
         public string Reset()

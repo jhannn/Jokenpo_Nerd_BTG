@@ -7,7 +7,7 @@ namespace DesafioBTG.Services
 {
     public interface IJokenpoService
     {
-        public string Play();
+        public string Play(string namePlayer1, string namePlayer2);
         public string Reset();
     }
 }
